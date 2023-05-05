@@ -1,0 +1,24 @@
+description: >
+    This command add an SSH key via its fingerprint, keyscan the provided domain or IP and install required package to deploy
+
+parameters:
+    fingerprint:
+        type: string
+        description: "The SSH key fingerprint to add"
+    hostname:
+        type: string
+        description: "The hostname or IP to add to known hosts"
+steps:
+    - add_ssh_keys:
+          fingerprints:
+              - << parameters.fingerprint >>
+
+    - run:
+          name: Keyscan << parameters.hostname >>
+          command: ssh-keyscan -H << parameters.hostname >> >> ~/.ssh/known_hosts
+
+    - run:
+          name: Install required packages
+          command: |
+              sudo apt-get update
+              sudo apt-get install rsync ssh openssh-client

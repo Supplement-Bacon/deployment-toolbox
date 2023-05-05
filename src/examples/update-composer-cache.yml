@@ -1,0 +1,19 @@
+description: >
+    update-composer-cache command example
+# Provide a use-case based example for using this orb.
+# Everything in the `usage` section will be displayed in the orb registry.
+# Comments are not retained.
+usage:
+    version: 2.1
+    orbs:
+        sb-toolbox: supplement-bacon/deployment-toolbox@1.0.0
+    workflows:
+        use-my-orb-without-prefix:
+            jobs:
+                - checkout
+                - sb-toolbox/update-composer-cache
+        use-my-orb-with-prefix:
+            jobs:
+                - checkout
+                - sb-toolbox/update-composer-cache:
+                      key-prefix: "composer-v1-"
