@@ -1,0 +1,15 @@
+description: >
+    This command restores the composer cache and install dependencies
+
+parameters:
+    key-prefix:
+        type: string
+        default: "composer-v1-"
+        description: "(optional) The composer cache key prefix"
+
+steps:
+    - restore_cache:
+          key: << parameters.key-prefix >>{{ checksum "composer.lock" }}
+    - run:
+          name: Install Composer dependencies
+          command: composer install -n --prefer-dist
